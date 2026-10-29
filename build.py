@@ -20,3 +20,7 @@ html = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 for f in ['manifest.webmanifest', 'icon-192.png', 'icon-512.png']:
     shutil.copy(src / f, dist / f)
 print('built v' + version, len(html), 'bytes')
+# GitHub Pages serves main / (root): mirror the build there.
+for f in dist.iterdir():
+    shutil.copy(f, root / f.name)
+(root / '.nojekyll').touch()
